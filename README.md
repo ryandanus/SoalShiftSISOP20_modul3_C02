@@ -11,12 +11,12 @@ SOAL
   - [Nomor 4](#nomor-4)
 
 JAWABAN
-  - [Jawaban Nomor 1](#jawaban-1)
-  - [Jawaban Nomor 2](#jawaban-2)
-  - [Jawaban Nomor 3](#jawaban-3)
-  - [Jawaban Nomor 4a](#jawaban-4a)
-  - [Jawaban Nomor 4b](#jawaban-4b)
-  - [Jawaban Nomor 4c](#jawaban-4c)
+  - [1](#jawaban-1)
+  - [2](#jawaban-2)
+  - [3](#jawaban-3)
+  - [4a](#jawaban-4a)
+  - [4b](#jawaban-4b)
+  - [4c](#jawaban-4c)
 
 ## Nomor 1
 ### Soal 1 :
