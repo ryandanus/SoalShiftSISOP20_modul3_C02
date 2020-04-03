@@ -11,8 +11,10 @@
 #define NUM_THREADS M * N
 int matriks;
 
-void *factorial(int ptr); /* the thread */
-int fact(int n);
+void *penjumlahan(int *ptr); /* the thread */
+int jumlah(int *n);
+
+
 
 void main()
 {
@@ -26,28 +28,21 @@ void main()
 
     pthread_t workers[NUM_THREADS];
     pthread_attr_t attr; // set of thread attributes
-    
-    // print matriks
-    for (iv = 0; iv< M*N; iv++)
-    {   
-        printf("%d\t",value[iv]);    
-        if( (iv%5) == 4)printf("\n");
-    
-    }
-    
+
     /* create  worker threads */
     for (i = 0; i < M*N; i++)
     {
         matriks = value[i];
         pthread_attr_init(&attr);
-        pthread_create(&workers[thread_counter], &attr, &factorial, (void *)matriks);
+        pthread_create(&workers[thread_counter], &attr, penjumlahan, (void *)matriks);
         thread_counter++;
-     
+   
         if( (i%5) == 0){
             printf("\n");
         }
-
+       
     }
+  
         
     for (i = 0; i < thread_counter; i++)
     {
@@ -60,15 +55,17 @@ void main()
     shmctl(shmid, IPC_RMID, NULL);
 }
 
-int fact(int n){
-    if(n==0 || n==1)
-    return 1;
-    else 
-    return n*fact(n-1);
+int jumlah(int *n){
+    int i,sum=0;
+    for (i=n;i>=0;i--){
+        sum=sum+i;
+    }
+    return sum;
 }
 
-void *factorial(int ptr)
+
+void *penjumlahan(int *ptr)
 {       
-    printf("%d\t",fact(ptr));
+    printf("%d\t",jumlah(ptr));
     pthread_exit(0);
 }
