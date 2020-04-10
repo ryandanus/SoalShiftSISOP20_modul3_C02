@@ -276,4 +276,3 @@ int main() {
 
     
 # Kendala
-buset siap banget gan
