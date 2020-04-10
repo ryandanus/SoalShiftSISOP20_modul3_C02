@@ -569,7 +569,7 @@ Setelah dilakukan strrchr maka dilakukan pembuangan titik di awal array dengan m
 
 ```
 ### penjelasan 
-
+untuk shared memory sendiri didalam program ini cukup unik. Dalam program digunakan dua shared memmory. Pertama untuk sharing value dari matrix hasil 4.a. Dan kedua, untuk sharing value mutex. Mutex didalam ini atau disebut status digunakan untuk penandaan program 4b telah berjalan. 
 
 ### Jawaban 4b
 ```
@@ -674,7 +674,7 @@ void *penjumlahan()
 
 ```
 ### penjelasan 
-
+Untuk 4b ini digunakan shared memory yang ada dari 4a. Digunakan juga thread dengan jumlah dari total matriks yang ada. Pertama adalah dengan deklarasi shared memory value dan status dengan shmget dan shmat. Kemudian deklarasi matrix dan hasilAkhir dari faktorisasi matriks didalam global variable.Tidak hanya itu dideklarasi x dan y sebagai iterasi matrix dan sebagai penanda x dan y matrix yang dimaksud sebagai hasil akhir. Tujuan digunakan global variable adalah agar multithread dapat membaca matrix dengan mudah tanpa harus dilakukan passing parameter. Dengan looping digunakan penetapan status shared memori menjadi 1 yang menanda bahwa program 4b berjalan. Kemudian dilakukan pembacaan value dan dimasukan kedalam matriks yang telah dibuat. Setelah pembacaan value shared memory selesai kemudian dilakukan pembuatan thread setiap isi matriks yang ada, sejumlah 20 kali. Setiap pembacaan isi baris dari awal sampai selesai akan dilakukan pembacaan baris selanjutnya. Didalam thread sendiri ini akan digunakan rekursi penambahan dari nilai matrix x dan y kedalam hasil Akhir x dan y. Didalam recursive ini akan dilakukan penambahan dari n+n-1 yang dipassing sampai 1 ataupun 0. Kemudian setelah semua thread selesai bekerja, dilakukan looping x dan y untuk melakukan print dari matrix hasilakhir
 
 ### Jawaban 4c
 ```c
