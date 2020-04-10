@@ -5,25 +5,16 @@
 - Ryan Danu Saputra   05111840000144
 
 SOAL 
-  - [Nomor 1](#nomor-1)
   - [Nomor 2](#nomor-2)
   - [Nomor 3](#nomor-3)
   - [Nomor 4](#nomor-4)
 
 JAWABAN
-  - [1](#jawaban-1)
   - [2](#jawaban-2)
   - [3](#jawaban-3)
   - [4a](#jawaban-4a)
   - [4b](#jawaban-4b)
   - [4c](#jawaban-4c)
-
-## Nomor 1
-### Soal 1 :
-
-### Jawaban 1
-
-### penjelasan 
 
 ## Nomor 2
 ### Soal 2 :
