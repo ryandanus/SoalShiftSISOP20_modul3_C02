@@ -235,7 +235,7 @@ void* checkfile()
                     strcat(movinglocation,"/");
                     strcat(movinglocation,namafile);
 
-                    printf("Movinf Location %s\n",movinglocation);
+                    printf("Moving Location %s\n",movinglocation);
 
                     fp1 = fopen(dataPath,"rb");
                     fp2 = fopen(movinglocation, "wb");
@@ -277,13 +277,14 @@ void* checkfile()
 int main(int argc, char const *argv[])
 {
     pthread_t threadfile[maxthread];
-
     if (strcmp(argv[1], "-f") == 0)
     {
         int loop = 0;
         for (int i = 1; i < argc - 1; i++)
         {
+            a = 0;
             strcpy(backupPath,argv[i+1]);
+            printf("%s\n",backupPath);
             pthread_create(&threadfile[loop], NULL, &checkfile,NULL);
             while (a == 0)
             {
@@ -388,7 +389,6 @@ int main(int argc, char const *argv[])
                     if(flag > 0){
                         char temp3[1000];
                         snprintf(temp2, 1024, "%s", directoryDirent->d_name);
-                        printf("change name to : %s\n",temp2);
                     }
                     else
                     {
@@ -409,7 +409,8 @@ int main(int argc, char const *argv[])
         else
         {
             a = 0;
-            pthread_create(&(threadfile[0]), NULL, checkfile, (void *)argv[1]);
+            strcpy(backupPath,argv[1]);
+            pthread_create(&(threadfile[0]), NULL, checkfile, NULL);
             while (a == 0)
             {
             }
