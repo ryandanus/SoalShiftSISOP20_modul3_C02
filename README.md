@@ -1053,7 +1053,6 @@ does exist".
 ```
 ### penjelasan 
   Sesuai dengan petunjuk soal untuk digunakannya shared memory pada soal 4a dan 4b. Shared memory sendiri didalam program ini cukup unik. Dalam program digunakan dua shared memmory. Pertama untuk sharing value dari matrix hasil 4.a. Dan kedua, untuk sharing value mutex. Mutex didalam ini atau disebut status digunakan untuk penandaan program 4b telah berjalan. thread yang berjalan berjumlah sesuai dengan indeks matrix yaitu 20 thread yang akan menjalankan perkalian matrix setelah semua thread matrix itu selesai bekerja dilakukan looping untuk print hasil perkalian matrix tersebut
-![Screenshot from 2020-04-11 13-40-40](https://user-images.githubusercontent.com/59832754/79029728-e2aa4100-7bbf-11ea-8899-857023a13722.png)
 
 
 ### Jawaban 4b
@@ -1165,7 +1164,6 @@ thread yang berjalan se-jumlah  total matriks yang ada. Pertama shared memory va
 Tidak hanya itu dideklarasi x dan y sebagai iterasi matrix dan sebagai penanda x dan y matrix yang dimaksud sebagai hasil akhir. Tujuan digunakan global variable adalah agar multithread dapat membaca matrix dengan mudah tanpa harus dilakukan passing parameter. Dengan looping digunakan penetapan status shared memori menjadi 1 yang menanda bahwa program 4b telah berjalan. Kemudian dilakukan pembacaan value dan dimasukan kedalam matriks yang telah dibuat. Setelah pembacaan value shared memory selesai kemudian dilakukan pembuatan thread setiap isi matriks yang ada, sejumlah 20 kali.
 
 Setiap pembacaan isi baris dari awal sampai selesai akan dilakukan pembacaan baris selanjutnya. Didalam thread sendiri ini akan digunakan rekursi penambahan dari nilai matrix x dan y kedalam hasil Akhir x dan y. Didalam recursive ini akan dilakukan penambahan dari n+n-1 yang dipassing sampai 1 ataupun 0. Kemudian setelah semua thread selesai bekerja, dilakukan looping x dan y untuk melakukan print dari matrix hasilakhir berupa hasil penjumlahan sesuai dengan deskripsi soal
-![Screenshot from 2020-04-11 13-35-55](https://user-images.githubusercontent.com/59832754/79029752-fb1a5b80-7bbf-11ea-9d0c-46244719f0cd.png)
 
 ### Jawaban 4c
 ```c
@@ -1220,8 +1218,5 @@ syntax dup2(link[1], STDOUT_FILENO); digunakan untuk menghasilkan output dari ap
 
 perintah eksekusi ls akan dijalankan melalui fork yang diletakkan di child sedangkan wc -l diletakkan di parent
 hasil output dari program ini akan  sesuai dengan seperti saat perintah ls | wc -l dijalankan 
-![Screenshot from 2020-04-11 13-47-28](https://user-images.githubusercontent.com/59832754/79029829-5c422f00-7bc0-11ea-8f0d-9bda594a2f02.png)
-
-
     
 # Kendala
