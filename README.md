@@ -583,12 +583,14 @@ int main(int argc, char const *argv[])
 
 ## Nomor 3
 ### Soal 3 :
-Buatlah sebuah program dari C untuk mengkategorikan file. Program ini akan
+
+3. Buatlah sebuah program dari C untuk mengkategorikan file. Program ini akan
 memindahkan file sesuai ekstensinya (tidak case sensitive. JPG dan jpg adalah
 sama) ke dalam folder sesuai ekstensinya yang folder hasilnya terdapat di working
 directory ketika program kategori tersebut dijalankan.
 ● Semisal program dijalankan:
 # File kategori terletak di /home/izone/kategori
+```
 $ ./kategori -f path/to/file1.jpg path/to/file2.c path/to/file3.zip
 #Hasilnya adalah sebagai berikut
 /home/izone
@@ -598,6 +600,7 @@ $ ./kategori -f path/to/file1.jpg path/to/file2.c path/to/file3.zip
 |--file2.c
 |-zip
 |--file3.zi
+```
 ● Pada opsi -f tersebut, user bisa menambahkan argumen file yang bisa
 dikategorikan sebanyak yang user inginkan seperti contoh di atas.
 ● Pada program kategori tersebut, folder jpg,c,zip tidak dibuat secara manual,
@@ -623,6 +626,7 @@ juga menggunakan fork-exec dan system.
 ● Silahkan download soal3.zip sebagai percobaan. Namun silahkan
 dicoba-coba sendiri untuk kemungkinan test case lainnya yang mungkin
 belum ada di soal3.zip.
+
 
 ### Jawaban 3
 ```c
