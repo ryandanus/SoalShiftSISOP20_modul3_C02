@@ -422,8 +422,10 @@ int main(int argc, char const *argv[])
 memindahkan file sesuai ekstensinya (tidak case sensitive. JPG dan jpg adalah
 sama) ke dalam folder sesuai ekstensinya yang folder hasilnya terdapat di working
 directory ketika program kategori tersebut dijalankan.
+
 ● Semisal program dijalankan:
-# File kategori terletak di /home/izone/kategori
+
+File kategori terletak di /home/izone/kategori
 ```
 $ ./kategori -f path/to/file1.jpg path/to/file2.c path/to/file3.zip
 #Hasilnya adalah sebagai berikut
