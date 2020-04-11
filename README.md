@@ -1220,3 +1220,5 @@ perintah eksekusi ls akan dijalankan melalui fork yang diletakkan di child sedan
 hasil output dari program ini akan  sesuai dengan seperti saat perintah ls | wc -l dijalankan 
     
 # Kendala
+nomer 1 gabisa 
+nomer 2 tidak selesai 
