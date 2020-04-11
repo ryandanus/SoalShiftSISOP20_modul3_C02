@@ -409,9 +409,54 @@ int main(int argc, char const *argv[])
     return 0;
 }
 ```
-### penjelasan 
+### penjelasan
+  Untuk client side digunakan pendeklarasian client seperti biasa, kemudian dilakukan pembacaan pilihan register dan login. Jika register maka harus kembali ke screen1. Oleh karena itu digunakan goto sebagai penunjuk pengembalian. Jika sedang login maka dikirim perinah login ke server. Kemudian dimasukan username dan password dan dikirim ke server kembali dan menunggu perintah server apakah username dan password ada didalam server. Jika ada maka, ditunjukan dengan feedback dan dilanjutkan di program selanjutnya. Jika tidak maka dilakukan pengembalian ke menu login.
+  
+  Untuk register, dilakukan cara yang mirip dengan login. Tetapi perbedaannya hanya ketika setelah mengirimkan mode, username dan status dikembalikan ke screenlogin.Untuk server side pertama dilakukan deklarasi struct untuk akun yang akan digunakan dan struct untuk connection setiap client. Setelah itu, dilakukan deklarasi server biasa dengan menggunakan thread. Fungsi thread ini adalah sebagai pemegang setiap client yang ada. Untuk penanda thread client dapat digunakan sistem accept pada client[i]. Jika terdapat client maka dimasukan kedalam struct client_serv dan dibuat thread.
+  Sistem akan menunggu sampai dicapai client maksimum. Setelah itu, didalam thread itu sendiri, pertama dideklarasi log dan cid sebagai penanda login dan register. Didalam server digunakan screen1 sebagai login dan screen2 sebagai logout dan find match. Didalam program ini belum diimplementasi screen2. Didalam login ini pertama diambil jenis perintah dari client untuk login dan register. kemudian diambil username dan passwordnya. Jika login, maka dilakukan pembacaan akun.txt dengan fopen. kemudian semua username dan password tersebut dimasukan kedalam struct akun dan dimasukan kedalam list account. Kemudian dilakukan pengeccekan apabila username dan password tersebut ada didalam list account. Jika ada maka dikirim perintah login success, Jika tidak maka dikirim perintah login failed. Untuk register ini, hanya melakukan fprintf kedalam akun.txt dan dikembalikan ke screen1 
+
 ## Nomor 3
 ### Soal 3 :
+Buatlah sebuah program dari C untuk mengkategorikan file. Program ini akan
+memindahkan file sesuai ekstensinya (tidak case sensitive. JPG dan jpg adalah
+sama) ke dalam folder sesuai ekstensinya yang folder hasilnya terdapat di working
+directory ketika program kategori tersebut dijalankan.
+● Semisal program dijalankan:
+# File kategori terletak di /home/izone/kategori
+$ ./kategori -f path/to/file1.jpg path/to/file2.c path/to/file3.zip
+#Hasilnya adalah sebagai berikut
+/home/izone
+|-jpg
+|--file1.jpg
+|-c
+|--file2.c
+|-zip
+|--file3.zi
+● Pada opsi -f tersebut, user bisa menambahkan argumen file yang bisa
+dikategorikan sebanyak yang user inginkan seperti contoh di atas.
+● Pada program kategori tersebut, folder jpg,c,zip tidak dibuat secara manual,
+melainkan melalui program c. Semisal ada file yang tidak memiliki ekstensi,
+maka dia akan disimpan dalam folder “Unknown”.
+● Program kategori ini juga menerima perintah (*) seperti di bawah;
+$ ./kategori \*
+● Artinya mengkategori seluruh file yang ada di working directory ketika
+menjalankan program C tersebut.
+● Selain hal itu program C ini juga menerima opsi -d untuk melakukan kategori
+pada suatu directory. Untuk opsi -d ini, user hanya bisa menginput 1 directory
+saja, tidak seperti file yang bebas menginput file sebanyak mungkin.
+$ ./kategori -d /path/to/directory/
+● Hasilnya perintah di atas adalah mengkategorikan file di /path/to/directory dan
+hasilnya akan disimpan di working directory di mana program C tersebut
+berjalan (hasil kategori filenya bukan di /path/to/directory).
+● Program ini tidak rekursif. Semisal di directory yang mau dikategorikan, atau
+menggunakan (*) terdapat folder yang berisi file, maka file dalam folder
+tersebut tidak dihiraukan, cukup file pada 1 level saja.
+● Setiap 1 file yang dikategorikan dioperasikan oleh 1 thread agar bisa berjalan
+secara paralel sehingga proses kategori bisa berjalan lebih cepat. Dilarang
+juga menggunakan fork-exec dan system.
+● Silahkan download soal3.zip sebagai percobaan. Namun silahkan
+dicoba-coba sendiri untuk kemungkinan test case lainnya yang mungkin
+belum ada di soal3.zip.
 
 ### Jawaban 3
 ```c
@@ -838,14 +883,71 @@ int main(int argc, char const *argv[])
 }
 ```
 ### penjelasan 
-Pertama dengan membaca jenis pembukaan, jika -f -d dan jika hanya path saja ataupun bintang. Jika -f maka dilakukan pembacaan setiap path kemudian membuat thread. Kemudian dengan mutek kita tunggu program selesai kemudian membaca path selanjutnya. Jika -d maka pertama membaca path. Kemudian penempatan path didalam directory itu dengan nama filepath. Kemudian membuat thread dan menjoin thread. Program akan membaca terus directory yang diberikan sampai habis.Kemudian untuk bintang, dilakukan pembacaan path program dengan getcwd. Kemudian dilakukan hal yang sama dengan  -d, pembacaan path yang ada di directory tersebut sampain habis. Dan jika hanya diinput path saja maka hanya dilakukan penetapan backuppath atau filepath yang ada dan dilakukan tread untuk pengecekan path. 
+  Pertama dengan membaca jenis pembukaan, jika -f -d dan jika hanya path saja ataupun bintang. Jika -f maka dilakukan pembacaan setiap path kemudian membuat thread. Kemudian dengan mutek kita tunggu program selesai kemudian membaca path selanjutnya. Jika -d maka pertama membaca path. Kemudian penempatan path didalam directory itu dengan nama filepath. Kemudian membuat thread dan menjoin thread. Program akan membaca terus directory yang diberikan sampai habis.Kemudian untuk bintang, dilakukan pembacaan path program dengan getcwd. Kemudian dilakukan hal yang sama dengan  -d, pembacaan path yang ada di directory tersebut sampain habis. Dan jika hanya diinput path saja maka hanya dilakukan penetapan backuppath atau filepath yang ada dan dilakukan tread untuk pengecekan path. 
 
-Untuk checkfile ini sendiri pertama memasukan datapath dari path yang sudah ada. Kemudian dilakukan pengecekan apabia path yang ingin dicek adalah folder ataupun file. Jika file maka dapat dilakukan pembacaan extensi dan pembacaan lokasi program.untuk pembacaan lokasi program dapat digunakan getcwd.  Untuk pembacaan extensi dapat digunakan strrchr dan titik yang bertujuan untuk membaca setelah . terakhir suatu file atau yang disebut extensi file. Jika tidak ditemukan extensi maka dapat dilakukan pembuatan file. Pertama kita ambil moving location yang diberi nama path program / unknown / nama file. Kemudian dilakukan mkdir folder unknown tersebut. Setelah itu dilakukan pemindahan dengan byte dengan fopen kedua path yang ada. Dilakukan fgetc dari source path ke moving location yang diinginkan. Kemudian program menunjukan mutex selesai dan program berakhir.
-Setelah dilakukan strrchr maka dilakukan pembuangan titik di awal array dengan memmove. Jika terdapat extensi yang melebihi batas integer dari A sampai z maka diprogram akan berjalan seperti program tidak memiliki extensi. Jika extensi memiliki huruf besar A-Z maka dilakukan pengubahan menjadi huruf kecil atau penambahan 32 dengan ascii code. Setelah itu dilakukan pengecekan jika folder extensi ada menggunakan opendir.Jika ada maka tinggal penyiapan movinglocation dengan nama extensi dan nama file dan dilakukan fopen ke moving location tersebut. Kemudian dibuka datapath yang ada dan dilakukan fgetc dari datapath ke movinglocation sampai selesain. Kemudian penandaan mutex dan program selesai. Jika tidak ada folder dengan nama extensi, maka dapat dilakukan pembuatan folder terlebih dahulu dengan movinglocation pathprogram/namaextensi dan dengan mkdir moving location. Kemudian program berjalan seperti biasa.
+  Untuk checkfile ini sendiri pertama memasukan datapath dari path yang sudah ada. Kemudian dilakukan pengecekan apabia path yang ingin dicek adalah folder ataupun file. Jika file maka dapat dilakukan pembacaan extensi dan pembacaan lokasi program.untuk pembacaan lokasi program dapat digunakan getcwd.  Untuk pembacaan extensi dapat digunakan strrchr dan titik yang bertujuan untuk membaca setelah . terakhir suatu file atau yang disebut extensi file. Jika tidak ditemukan extensi maka dapat dilakukan pembuatan file. Pertama kita ambil moving location yang diberi nama path program / unknown / nama file. Kemudian dilakukan mkdir folder unknown tersebut. Setelah itu dilakukan pemindahan dengan byte dengan fopen kedua path yang ada. Dilakukan fgetc dari source path ke moving location yang diinginkan. Kemudian program menunjukan mutex selesai dan program berakhir.
+  
+  Setelah dilakukan strrchr maka dilakukan pembuangan titik di awal array dengan memmove. Jika terdapat extensi yang melebihi batas integer dari A sampai z maka diprogram akan berjalan seperti program tidak memiliki extensi. Jika extensi memiliki huruf besar A-Z maka dilakukan pengubahan menjadi huruf kecil atau penambahan 32 dengan ascii code. Setelah itu dilakukan pengecekan jika folder extensi ada menggunakan opendir.Jika ada maka tinggal penyiapan movinglocation dengan nama extensi dan nama file dan dilakukan fopen ke moving location tersebut. Kemudian dibuka datapath yang ada dan dilakukan fgetc dari datapath ke movinglocation sampai selesain. Kemudian penandaan mutex dan program selesai. Jika tidak ada folder dengan nama extensi, maka dapat dilakukan pembuatan folder terlebih dahulu dengan movinglocation pathprogram/namaextensi dan dengan mkdir moving location. Kemudian program berjalan seperti biasa.
 
 ## Nomor 4
 ### Soal 4 :
+Norland adalah seorang penjelajah terkenal. Pada suatu malam Norland menyusuri
+jalan setapak menuju ke sebuah gua dan mendapati tiga pilar yang pada setiap
+pilarnya ada sebuah batu berkilau yang tertancap. Batu itu berkilau di kegelapan dan
+setiap batunya memiliki warna yang berbeda.
+Norland mendapati ada sebuah teka-teki yang tertulis di setiap pilar. Untuk dapat
+mengambil batu mulia di suatu pilar, Ia harus memecahkan teka-teki yang ada di
+pilar tersebut. Norland menghampiri setiap pilar secara bergantian.
+- Batu mulia pertama. Emerald. Batu mulia yang berwarna hijau mengkilat. Pada
+batu itu Ia menemukan sebuah kalimat petunjuk. Ada sebuah teka-teki yang berisi:
+1. Buatlah program C dengan nama "4a.c", yang berisi program untuk
+melakukan perkalian matriks. Ukuran matriks pertama adalah 4x2, dan
+matriks kedua 2x5. Isi dari matriks didefinisikan di dalam kodingan. Matriks
+nantinya akan berisi angka 1-20 (tidak perlu dibuat filter angka).
+2. Tampilkan matriks hasil perkalian tadi ke layar.
 
+- Batu kedua adalah Amethyst. Batu mulia berwarna ungu mengkilat. Teka-tekinya
+adalah:
+
+1. Buatlah program C kedua dengan nama "4b.c". Program ini akan
+mengambil variabel hasil perkalian matriks dari program "4a.c" (program
+sebelumnya), dan tampilkan hasil matriks tersebut ke layar.
+(Catatan!: gunakan shared memory)
+2. Setelah ditampilkan, berikutnya untuk setiap angka dari matriks
+tersebut, carilah nilai faktorialnya, dan tampilkan hasilnya ke layar dengan
+format seperti matriks.
+
+Contoh: misal array [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], ...],
+
+maka:
+
+1 2 6 24
+120 720 ... ...
+...
+
+(Catatan! : Harus menggunakan Thread dalam penghitungan
+faktorial)
+- Batu ketiga adalah Onyx. Batu mulia berwarna hitam mengkilat. Pecahkan
+teka-teki berikut!
+
+1. Buatlah program C ketiga dengan nama "4c.c". Program ini tidak
+memiliki hubungan terhadap program yang lalu.
+2. Pada program ini, Norland diminta mengetahui jumlah file dan
+folder di direktori saat ini dengan command "ls | wc -l". Karena sudah belajar
+IPC, Norland mengerjakannya dengan semangat.
+(Catatan! : Harus menggunakan IPC Pipes)
+Begitu batu terakhir berhasil didapatkan. Gemuruh yang semakin lama semakin
+besar terdengar. Seluruh tempat berguncang dahsyat, tanah mulai merekah. Sebuah
+batu yang di atasnya terdapat kotak kayu muncul ke atas dengan sendirinya.
+
+Sementara batu tadi kembali ke posisinya. Tanah kembali menutup, seolah tidak
+pernah ada lubang merekah di atasnya satu detik lalu.
+Norland segera memasukkan tiga buah batu mulia Emerald, Amethys, Onyx pada
+Peti Kayu. Maka terbukalah Peti Kayu tersebut. Di dalamnya terdapat sebuah harta
+karun rahasia. Sampai saat ini banyak orang memburu harta karun tersebut.
+Sebelum menghilang, dia menyisakan semua petunjuk tentang harta karun tersebut
+melalui tulisan dalam buku catatannya yang tersebar di penjuru dunia. "One Piece
+does exist".
 
 
 ### Jawaban 4a
@@ -950,7 +1052,7 @@ Setelah dilakukan strrchr maka dilakukan pembuangan titik di awal array dengan m
 
 ```
 ### penjelasan 
-sesuai dengan petunjuk soal untuk digunakannya shared memory pada soal 4a dan 4b. Shared memory sendiri didalam program ini cukup unik. Dalam program digunakan dua shared memmory. Pertama untuk sharing value dari matrix hasil 4.a. Dan kedua, untuk sharing value mutex. Mutex didalam ini atau disebut status digunakan untuk penandaan program 4b telah berjalan. thread yang berjalan berjumlah sesuai dengan indeks matrix yaitu 20 thread yang akan menjalankan perkalian matrix setelah semua thread matrix itu selesai bekerja dilakukan looping untuk print hasil perkalian matrix tersebut
+  Sesuai dengan petunjuk soal untuk digunakannya shared memory pada soal 4a dan 4b. Shared memory sendiri didalam program ini cukup unik. Dalam program digunakan dua shared memmory. Pertama untuk sharing value dari matrix hasil 4.a. Dan kedua, untuk sharing value mutex. Mutex didalam ini atau disebut status digunakan untuk penandaan program 4b telah berjalan. thread yang berjalan berjumlah sesuai dengan indeks matrix yaitu 20 thread yang akan menjalankan perkalian matrix setelah semua thread matrix itu selesai bekerja dilakukan looping untuk print hasil perkalian matrix tersebut
 ![Screenshot from 2020-04-11 13-40-40](https://user-images.githubusercontent.com/59832754/79029728-e2aa4100-7bbf-11ea-8899-857023a13722.png)
 
 
@@ -1057,7 +1159,7 @@ void *penjumlahan()
 
 ```
 ### penjelasan 
-Untuk 4b ini, digunakan shared memory yang ada dari 4a.
+  Untuk 4b ini, digunakan shared memory yang ada dari 4a.
 thread yang berjalan se-jumlah  total matriks yang ada. Pertama shared memory value dideklarasi  dan shmget,shmat untuk status. Kemudian deklarasi matrix dan hasilAkhir dari faktorisasi matriks didalam global variable.
 
 Tidak hanya itu dideklarasi x dan y sebagai iterasi matrix dan sebagai penanda x dan y matrix yang dimaksud sebagai hasil akhir. Tujuan digunakan global variable adalah agar multithread dapat membaca matrix dengan mudah tanpa harus dilakukan passing parameter. Dengan looping digunakan penetapan status shared memori menjadi 1 yang menanda bahwa program 4b telah berjalan. Kemudian dilakukan pembacaan value dan dimasukan kedalam matriks yang telah dibuat. Setelah pembacaan value shared memory selesai kemudian dilakukan pembuatan thread setiap isi matriks yang ada, sejumlah 20 kali.
@@ -1112,7 +1214,7 @@ int main() {
 }
 ```
 ### penjelasan 
-pada 4.c ,program ini dijalankan menggunakan sebuah pipe melalui fork(); dan akan menampilkan suatu jumlah file folder
+  pada 4.c ,program ini dijalankan menggunakan sebuah pipe melalui fork(); dan akan menampilkan suatu jumlah file folder
 
 syntax dup2(link[1], STDOUT_FILENO); digunakan untuk menghasilkan output dari apa yang akan dijalankan ke link1. Setelah itu ditutup dengan perintah " close "
 
