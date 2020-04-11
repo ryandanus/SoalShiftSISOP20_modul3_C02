@@ -415,6 +415,14 @@ int main(int argc, char const *argv[])
   Untuk register, dilakukan cara yang mirip dengan login. Tetapi perbedaannya hanya ketika setelah mengirimkan mode, username dan status dikembalikan ke screenlogin.Untuk server side pertama dilakukan deklarasi struct untuk akun yang akan digunakan dan struct untuk connection setiap client. Setelah itu, dilakukan deklarasi server biasa dengan menggunakan thread. Fungsi thread ini adalah sebagai pemegang setiap client yang ada. Untuk penanda thread client dapat digunakan sistem accept pada client[i]. Jika terdapat client maka dimasukan kedalam struct client_serv dan dibuat thread.
   Sistem akan menunggu sampai dicapai client maksimum. Setelah itu, didalam thread itu sendiri, pertama dideklarasi log dan cid sebagai penanda login dan register. Didalam server digunakan screen1 sebagai login dan screen2 sebagai logout dan find match. Didalam program ini belum diimplementasi screen2. Didalam login ini pertama diambil jenis perintah dari client untuk login dan register. kemudian diambil username dan passwordnya. Jika login, maka dilakukan pembacaan akun.txt dengan fopen. kemudian semua username dan password tersebut dimasukan kedalam struct akun dan dimasukan kedalam list account. Kemudian dilakukan pengeccekan apabila username dan password tersebut ada didalam list account. Jika ada maka dikirim perintah login success, Jika tidak maka dikirim perintah login failed. Untuk register ini, hanya melakukan fprintf kedalam akun.txt dan dikembalikan ke screen1 
 
+saat program 2 (bagian login) dijalankan
+
+![Screenshot from 2020-04-12 12-13-28](https://user-images.githubusercontent.com/59832754/79056153-8a397900-7c7d-11ea-8825-8a54d850d368.png)
+
+jika login berhasil maka server akan menampilkan "auth success" jika login gagal "auth faied"
+
+![Screenshot from 2020-04-12 12-13-42](https://user-images.githubusercontent.com/59832754/79056154-8c033c80-7c7d-11ea-83c6-696bb33f1400.png)
+
 ## Nomor 3
 ### Soal 3 :
 
